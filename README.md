@@ -4,4 +4,4 @@ Find how much given word is repeated in the string array and then it compares wi
 
 [![Build Status](https://travis-ci.org/kurular4/myDemoApp.svg?branch=master)](https://travis-ci.org/kurular4/myDemoApp)
 
-https://intense-earth-83690.herokuapp.com/compute
+Demo: https://intense-earth-83690.herokuapp.com
