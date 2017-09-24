@@ -26,16 +26,25 @@ public class App
           //System.out.println(req.queryParams("input1"));
           //System.out.println(req.queryParams("input2"));
 
-          String input1 = "Spain";
-	  int input2 = 3;
-          String[] inputList = new String[8];
+          String input1 = req.queryParams("input1");
+ 	  java.util.Scanner sc1 = new java.util.Scanner(input1);
+	  sc1.useDelimiter("[;\r\n]+");
+	  java.util.ArrayList<String> inputList = new java.util.ArrayList<>();
+          while (sc1.hasNext())
+          {
+            String value = sc1.next().replaceAll("\\s","");
+            inputList.add(value);
+  	  }
     
-          for(String a: inputList)
-		System.out.println(a);
+          System.out.println(inputList);
 
           int result = App.moreThan(inputList,input2,input1);
 
-         Map map = new HashMap();
+	  String input2 = req.queryParams("input2").replaceAll("\\s","");
+	  String input3 = req.queryParams("input3").replaceAll("\\s","");
+	  int input3Int = Integer.parseInt(input3);
+ 	  boolean result = App.search(inputList,input3Int,input2);
+          Map map = new HashMap();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
@@ -72,6 +81,6 @@ public class App
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
-    }
+}
 
 }
