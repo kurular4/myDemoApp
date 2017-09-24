@@ -1,47 +1,49 @@
 package com.mycompany.app;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
+import java.util.*;
 
 
 public class AppTest 
   extends TestCase
 {
 
-    public void test1()
-    {
-	App a = new App();
-	String[] array = {"Turkey", "England", "Spain", "Turkey", "Russia", "France", "Norway", "Turkey"};
-	assertTrue((a.moreThan(array, 4, "Turkey"))==1);
+    public AppTest(String testName){
+        super(testName);
+    }
+    
+
+    public static Test suite(){
+        return new TestSuite(AppTest.class);
     }
 
-    public void test2()
-    {
-	App a = new App();
-	String[] array = {"Turkey", "England", "Spain", "Turkey", "Russia", "France", "Norway", "Turkey"};
-	assertTrue((a.moreThan(array,3, "Turkey"))==0);
+    public void testApp(){
+        assertTrue( true );
+    }    
+
+    public void testBadInt(){
+      ArrayList<String> array = new ArrayList<>(Arrays.asList("abc","bcd","cde"));
+      assertFalse((new App().moreThan(array,3,"abc")) != 1);
     }
 
-    public void test3()
-    {
-	App a = new App();
-	String[] array = {"Turkey", "England", "Spain", "Turkey", "Russia", "France", "Norway", "Turkey"};
-	assertTrue((a.moreThan(array,2,"Turkey"))==-1);
+    public void testIsNotTrue(){
+      ArrayList<String> array = new ArrayList<>(Arrays.asList("abc","abc","bcd"));
+      assertFalse((new App().moreThan(array,-2,"abc")) != -1);
     }
 
-    public void test4()
-    {
-	App a = new App();
-	String[] array = {"Turkey", "England", "Spain", "Turkey", "Russia", "France", "Norway", "Turkey"};
-	assertFalse((a.moreThan(array,2,"Spain"))==0);
+    public void testIsTrue(){
+      ArrayList<String> array = new ArrayList<>(Arrays.asList("abc","abc","bcd"));
+      assertTrue((new App().moreThan(array,1,"abc")) == -1);
     }
 
-    public void test5()
-    {
-	App a = new App();
-	String[] array = {"Turkey", "England", "Spain", "Turkey", "Russia", "France", "Norway", "Turkey"};
-	assertTrue((a.moreThan(array,4,"Russia"))==1);
+    public void testIsFalse(){
+      ArrayList<String> array = new ArrayList<>(Arrays.asList("abc","abc","bcd"));
+      assertFalse((new App().moreThan(array,1,"abc")) == 1);
+    }
+
+    public void checkEquality(){
+      ArrayList<String> array = new ArrayList<>(Arrays.asList("abc","abc","bcd"));  
+      assertTrue((new App().moreThan(array,0,"efg")) == 0);
     }
 }

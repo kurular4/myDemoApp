@@ -16,56 +16,45 @@ import spark.template.mustache.MustacheTemplateEngine;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-       port(getHerokuAssignedPort());
-
+    public static void main(String[] args){
+        port(getHerokuAssignedPort());
         get("/", (req, res) -> "Hello, World");
-
         post("/compute", (req, res) -> {
           //System.out.println(req.queryParams("input1"));
           //System.out.println(req.queryParams("input2"));
-
           String input1 = req.queryParams("input1");
- 	  java.util.Scanner sc1 = new java.util.Scanner(input1);
-	  sc1.useDelimiter("[;\r\n]+");
-	  java.util.ArrayList<String> inputList = new java.util.ArrayList<>();
+          java.util.Scanner sc1 = new java.util.Scanner(input1);
+          sc1.useDelimiter("[;\r\n]+");
+          java.util.ArrayList<String> inputList = new java.util.ArrayList<>();
           while (sc1.hasNext())
           {
             String value = sc1.next().replaceAll("\\s","");
             inputList.add(value);
-  	  }
-    
+          }
           System.out.println(inputList);
-
-          int result = App.moreThan(inputList,input2,input1);
-
-	  String input2 = req.queryParams("input2").replaceAll("\\s","");
+          String input2 = req.queryParams("input2").replaceAll("\\s","");
 	  String input3 = req.queryParams("input3").replaceAll("\\s","");
 	  int input3Int = Integer.parseInt(input3);
- 	  boolean result = App.search(inputList,input3Int,input2);
+          int result = App.moreThan(inputList,input3Int,input2);
           Map map = new HashMap();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
-
-
-        get("/compute", (rq, rs) -> {
+        get("/compute",
+            (rq, rs) -> {
               Map map = new HashMap();
               map.put("result", "not computed yet!");
               return new ModelAndView(map, "compute.mustache");
             },
             new MustacheTemplateEngine());
+}
 
-
-    }
-
-    public static int moreThan(String[] array, int count, String word)
+    public static int moreThan(ArrayList<String> array, int count, String word)
     {
 	int a = 0;
-	if(array.length == 0) return 2;
-	for(int i = 0; i<array.length;i++)
-		if(word.equals(array[i]))
+	if(array.size() == 0) return 2;
+	for(int i = 0; i<array.size();i++)
+		if(word.equals(array.get(i)))
 			a++;
 	if(count > a)
 		return 1;
